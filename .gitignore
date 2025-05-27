@@ -1,0 +1,9 @@
+.classpath
+.project
+.settings/
+bin/
+bin/*
+# coap-proxy/src/main/resources/coapproxy/
+# coap-proxy/src/main/resources/coapproxy/*
+target/
+target/*
