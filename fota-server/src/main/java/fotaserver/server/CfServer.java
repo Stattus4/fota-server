@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fotaserver.server.resources.ResourceHello;
+import fotaserver.server.resources.ResourceManifest;
 
 public class CfServer extends CoapServer {
 
@@ -74,6 +75,7 @@ public class CfServer extends CoapServer {
 	private void addResources(HashMapCtxDB oscoreCtxDb) {
 		tryAddResource(() -> new MyIpResource(MyIpResource.RESOURCE_NAME, true), MyIpResource.class.getName());
 		tryAddResource(() -> new ResourceHello("hello"), ResourceHello.class.getName());
+		tryAddResource(() -> new ResourceManifest("manifest"), ResourceManifest.class.getName());
 	}
 
 	private void tryAddResource(Supplier<CoapResource> resourceSupplier, String resourceName) {
