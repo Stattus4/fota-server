@@ -17,9 +17,6 @@ public class ResourceManifest extends CoapResource {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ResourceManifest.class);
 
-	private ManifestFactory manifestFactory = new ManifestFactory();
-	private ManifestSerializer manifestSerializer = new ManifestSerializer();
-
 	public ResourceManifest(String name) {
 		super(name);
 
@@ -37,9 +34,9 @@ public class ResourceManifest extends CoapResource {
 			String formatString = uriQueryParameter.getArgument("format", "cbor");
 			Format format = Format.fromString(formatString);
 
-			ManifestWrapper manifestWrapper = manifestFactory.get(device);
+			ManifestWrapper manifestWrapper = ManifestFactory.get(device);
 
-			byte[] payload = manifestSerializer.serialize(manifestWrapper, format);
+			byte[] payload = ManifestSerializer.serialize(manifestWrapper, format);
 
 			int mediaType = (format == Format.JSON) ? MediaTypeRegistry.APPLICATION_JSON
 					: MediaTypeRegistry.APPLICATION_CBOR;

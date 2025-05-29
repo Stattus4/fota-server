@@ -6,17 +6,18 @@ import com.fasterxml.jackson.dataformat.cbor.CBORFactory;
 
 public class ManifestSerializer {
 
-	private final ObjectMapper cborMapper = new ObjectMapper(new CBORFactory());
-	private final ObjectMapper jsonMapper = new ObjectMapper();
+	public static byte[] serialize(Object o, Format format) throws JsonProcessingException {
+		ObjectMapper mapper;
 
-	public byte[] serialize(Object o, Format format) throws JsonProcessingException {
-		if (format == Format.CBOR) {
-			return cborMapper.writeValueAsBytes(o);
-		} else if (format == Format.JSON) {
-			return jsonMapper.writeValueAsBytes(o);
+		if (format == Format.JSON) {
+			mapper = new ObjectMapper();
+
+			return mapper.writeValueAsBytes(o);
 		}
 
-		throw new RuntimeException();
+		mapper = new ObjectMapper(new CBORFactory());
+
+		return mapper.writeValueAsBytes(o);
 	}
 
 	public enum Format {
