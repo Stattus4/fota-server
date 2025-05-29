@@ -1,0 +1,18 @@
+services:
+  fota-server-app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      args:
+        BUILD_CF_CLIENT: true
+        BUILD_LOAD_TEST: true
+    container_name: fota-server-app
+    ports:
+      - "5683:5683/udp"
+      - "5684:5684/udp"
+    environment:
+      FOTASERVER_SERVER_START: true
+      FOTASERVER_SECURE_SERVER_START: true
+      FOTASERVER_SECURE_SERVER_PSK_IDENTITY: "identity"
+      FOTASERVER_SECURE_SERVER_PSK_SECRET: "qwerty"
+    restart: unless-stopped
